@@ -1,0 +1,65 @@
+
+<section id="favorite-modal" class="modal-tabs">
+	<div class="modal-header">
+		<button class="close" ng-click="cancel()"><span class="glyphicon glyphicon-remove"></span></button>
+		<h4 class="modal-title">More Details</h4>
+	</div>
+	<div class="modal-body">
+		<uib-tabset justified="true">
+			<uib-tab heading="General">
+				<dl>
+					<dt>Date: </dt>
+					<dd>{{favorite.date | date:dateFormat}}</dd>
+
+					<dt>Name: </dt>
+					<dd>{{favorite.name}}</dd>
+
+					<dt>Request URL: </dt>
+					<dd style="word-break: break-all;">{{favorite.url}}</dd>
+
+					<dt>Request Method: </dt>
+					<dd>{{favorite.method | uppercase}}</dd>
+				</dl>
+			</uib-tab>
+
+			<uib-tab heading="Payload" disable="!favorite.payload">
+				<div hljs source="favorite.payload" class="json-content small"></div>
+			</uib-tab>
+
+			<uib-tab disable="countHeaders(favorite.headers, favorite.auth) == 0">
+				<uib-tab-heading>
+					Headers <span class="badge">{{countHeaders(favorite.headers, favorite.auth)}}</span>
+				</uib-tab-heading>
+				<table class="table table-striped">
+					<thead ng-show="countHeaders(favorite.headers) > 0">
+						<tr>
+							<th>Name</th>
+							<th>Value</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="header in favorite.headers">
+							<td class="break-row">{{header.name}}</td>
+							<td class="break-row">{{header.value}}</td>
+						</tr>
+						<tr ng-show="favorite.auth && favorite.auth.value">
+							<th colspan="2">Authorization (Basic Authentication)</th>
+						</tr>
+						<tr ng-show="favorite.auth && favorite.auth.value">
+							<td colspan="2" class="break-row">{{favorite.auth.value}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</uib-tab>
+		</uib-tabset>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-success" ng-click="apply(favorite.id)">
+			<span class="glyphicon glyphicon-play" aria-hidden="true"></span> Apply Favorite
+		</button>
+		<button type="button" class="btn btn-primary" ng-click="export()">
+			<span class="glyphicon glyphicon-export" aria-hidden="true"></span> Export
+		</button>
+		<button class="btn btn-default" ng-click="cancel()">Close</button>
+	</div>
+</section>

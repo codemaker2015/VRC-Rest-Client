@@ -1,0 +1,225 @@
+
+<div ng-controller="AppCtrl">
+	<article class="row clearfix">
+		<form class="col-md-12 column" id="requestForm">
+			<section class="panel panel-primary">
+				<div class="panel-heading">
+					<h2 class="panel-title">
+						<a href="" ng-click="showRequestSection = !showRequestSection">
+							Request Settings
+							<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': !showRequestSection, 'glyphicon-chevron-right': showRequestSection}"></i>
+						</a>
+					</h2>
+				</div>
+
+				<div class="panel-collapse" uib-collapse="showRequestSection">
+					<div class="form-horizontal panel-body" role="form">
+						<div class="form-group">
+							<label for="requestUrl" class="col-md-1 control-label" accesskey="u">URL:</label>
+							<div class="col-md-11">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="input-group">
+											<span class="input-group-addon" title="Add to favorites.">
+												<input type="checkbox" class="glyphicon glyphicon-star-empty" ng-model="favoriteCheckbox" ng-disabled="!requestUrl" ng-click="addOrUpdateFavorite()">
+											</span>
+											<input id="requestUrl" type="url" ng-model="requestUrl" uib-typeahead="favorite.url for favorite in favorites | filter:{url:$viewValue} | limitTo:8" class="form-control" placeholder="http://www.example.com/resource/123" autofocus>
+											<div class="input-group-btn" title="Select the request method to use." uib-dropdown auto-close="outsideClick" is-open="requestMethod.isopen">
+												<button id="requestMethodButton" type="button" class="btn btn-default" uib-dropdown-toggle>{{requestMethod.selected}}&nbsp;&nbsp;<span class="caret"></span></button>
+												<ul uib-dropdown-menu class="dropdown-menu-right">
+													<li ng-repeat="type in requestMethod.methods">
+														<a href="" ng-click="changeRequestMethod(type)" ng-hide="requestMethod.selected === type">{{type}}</a>
+													</li>
+													<li>
+														<input type="text" placeholder="Custom" form="" ng-model="requestMethod.custom" ng-keyup="$event.keyCode == 13 && changeRequestMethod(requestMethod.custom)" title="Click here to enter a custom request method">
+														<span class="glyphicon glyphicon-plus clickable" ng-click="changeRequestMethod(requestMethod.custom)" title="Apply the specified custom request method"></span>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="payload" class="col-md-1 control-label" accesskey="p">Payload:</label>
+							<div class="col-md-11">
+								<div class="row">
+									<div class="col-md-12">
+										<textarea class="form-control" rows="{{payloadHeight || 5}}" id="payload" placeholder="application/json" ng-model="payload" ng-click="payloadHeight = 10"></textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section id="headers" class="panel panel-primary" ng-controller="HeadersCtrl">
+				<div class="panel-heading">
+					<h2 class="panel-title">
+						<a href="" ng-click="showHeaderSection = !showHeaderSection">
+							Custom Headers
+							<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': showHeaderSection, 'glyphicon-chevron-right': !showHeaderSection}"></i>
+						</a>
+					</h2>
+				</div>
+
+				<div class="panel-collapse collapse" uib-collapse="!showHeaderSection">
+					<div class="form-horizontal panel-body" role="form" ng-model="headers">
+
+						<div class="form-group">
+							<label for="select-header" class="col-md-1 control-label">Headers:</label>
+							<div class="col-md-9">
+								<div class="input-group">
+									<select id="select-header" class="form-control" ng-model="selectedHeader" ng-options="header as header.label group by header.group for header in customHeaders"></select>
+									<div class="input-group-btn">
+										<button class="btn btn-default" type="button" ng-click="useCustomHeader(selectedHeader);">Add Selected Header</button>
+										<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" title="Edit/Delete Custom Headers." ng-disabled="selectedHeader.group === 'Examples'">
+											<span class="caret"></span>
+										</button>
+										<ul class="dropdown-menu">
+											<li><a href="" ng-click="openHeaderModal(selectedHeader);">Edit Saved Header</a></li>
+											<li><a href="" ng-click="deleteCustomHeader(selectedHeader);">Delete Saved Header</a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-2">
+								<button type="button" class="btn btn-primary full-width" ng-click="openHeaderModal();">Add New Header</button>
+							</div>
+						</div>
+
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th>Header Name</th>
+									<th>Header Value</th>
+									<th style="width: 100px;" class="text-center">Actions</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-show="isEmptyObject(headers)">
+									<td colspan="3">There are no headers to display.</td>
+								</tr>
+								<tr ng-repeat="row in headers">
+									<td>{{row.name}}</td>
+									<td class="break-row">{{row.value}}</td>
+									<td class="text-center">
+										<button type="button" ng-click="removeCustomHeader(row)" class="btn btn-xs btn-danger" title="Delete this entry.">
+											<span class="glyphicon glyphicon-remove"></span>
+										</button>
+										<button type="button" ng-click="openHeaderModal(row);" class="btn btn-xs btn-primary" title="Edit this entry.">
+											<span class="glyphicon glyphicon-edit"></span>
+										</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<p ng-hide="isEmptyObject(headers)">The above header(s) will be added to the next request.</p>
+					</div>
+				</div>
+			</section>
+
+			<section class="panel panel-primary" ng-controller="AuthCtrl">
+				<div class="panel-heading" >
+					<h2 class="panel-title">
+						<a href="" ng-click="showAuthSection = !showAuthSection">
+							Authentication
+							<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': showAuthSection, 'glyphicon-chevron-right': !showAuthSection}"></i>
+						</a>
+					</h2>
+				</div>
+
+				<div id="authentication" class="panel-collapse collapse" uib-collapse="!showAuthSection">
+					<div class="panel-body">
+						<p>Basic Authentication is supported. Enter a username and password and the Authorization Header will be generated and sent with the request.</p>
+
+						<div class="form-horizontal" role="form">
+							<div class="form-group">
+								<label for="auth" class="col-md-2 control-label">Authorization:</label>
+								<div class="col-md-7">
+									<input type="text" class="form-control" id="auth" placeholder="Example: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==" ng-model="authToken.value">
+								</div>
+								<div class="col-md-3">
+									<button type="button" class="btn btn-default full-width" ng-click="openAuthModal();">Add Credentials</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<div id="request-form-buttons" class="pull-right">
+				<button type="button" class="btn btn-default" ng-click="cancel();" ng-show="processing" title="Cancel the current request">Cancel</button>
+				<button type="submit" class="btn btn-success" id="submitFormButton" ng-click="submit();" ng-disabled="processing || !requestUrl" analytics-on analytics-label="{{requestMethod.selected}}">Send Request</button>
+			</div>
+		</form>
+	</article>
+
+	<div class="clearfix" ng-model="progress" ng-if="!displayResponse" ng-cloak>
+		<uib-progressbar class="progress-striped active" value="progress.value || 0">{{progress.label}}</uib-progressbar>
+	</div>
+
+	<div class="clearfix" ng-cloak>
+		<uib-alert ng-repeat="alert in alerts" type="{{alert.type}}">{{alert.msg}}</uib-alert>
+	</div>
+
+	<div id="response" class="row clearfix" ng-show="displayResponse" ng-cloak>
+		<div id="responseBody" class="col-md-12 column">
+			<section class="panel panel-info">
+				<div class="panel-heading">
+					<h2 class="panel-title">Response</h2>
+				</div>
+
+				<div class="panel-body">
+					<div class="well small">
+						<div class="hidden-xs http-{{response.status}} status-code" title="{{response.statusText}}">{{response.status}}</div>
+						<div>
+							<strong>Request URL:</strong> <a href="{{response.requestUrl}}" target="_blank">{{response.requestUrl}}</a><br>
+							<strong>Request Method:</strong> {{response.requestMethod}}<br>
+							<strong>Response Time:</strong> {{(timerEnd - timerStart) / 1000}} seconds<br>
+							<strong>Response Status:</strong> {{response.status}} - {{response.statusText}}
+						</div>
+					</div>
+
+					<uib-tabset class="json-tabs">
+						<uib-tab heading="Response Body" active="firstTab.active">
+							<div class="json-content" ng-if="!response.valid">
+								<uib-alert type="danger">
+									<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+									<span>There was a error in the response. This is often due to a mis-configured service.</span>
+								</uib-alert>
+							</div>
+							<ng-switch on="!!response.body" ng-show="response.valid">
+								<div ng-switch-when="true" hljs source="response.body" class="json-content"></div>
+								<div ng-switch-default class="json-content"><pre>(No Response Data)</pre></div>
+							</ng-switch>
+						</uib-tab>
+						<uib-tab heading="Response Body (RAW)" ng-show="response.valid">
+							<div class="json-content"><pre>{{response.body}}</pre></div>
+						</uib-tab>
+						<uib-tab ng-if="response.previewFlag" heading="Response Preview" ng-show="response.valid">
+							<iframe ng-attr-srcdoc="{{response.body | asTrusted}}" src="partials/preview.html"></iframe>
+						</uib-tab>
+						<uib-tab heading="Response Headers" ng-show="response.valid">
+							<div hljs source="response.headers" class="json-content"></div>
+						</uib-tab>
+						<uib-tab heading="Request Details" ng-show="response.valid">
+							<div hljs source="response.requestHeaders" class="json-content"></div>
+						</uib-tab>
+					</uib-tabset>
+
+					<div id="copy-buttons">
+						<button type="button" class="btn btn-primary" ng-click="copy(response.requestUrl);" title="Copy Request URL">
+							<span class="glyphicon glyphicon-copy" aria-hidden="true"></span> Copy Request
+						</button>
+						<button type="button" class="btn btn-primary" ng-click="copy(response.body);" ng-disabled="!response.body" title="Copy Response Body">
+							<span class="glyphicon glyphicon-copy" aria-hidden="true"></span> Copy Response
+						</button>
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
+</div>

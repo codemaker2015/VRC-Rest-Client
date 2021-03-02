@@ -1,0 +1,74 @@
+
+<section id="history-modal" class="modal-tabs">
+	<div class="modal-header">
+		<button class="close" ng-click="cancel()"><span class="glyphicon glyphicon-remove"></span></button>
+		<h4 class="modal-title">More Details</h4>
+	</div>
+	<div class="modal-body">
+		<uib-tabset justified="true">
+			<uib-tab heading="Request">
+				<dl>
+					<dt>Date: </dt>
+					<dd>{{history.date | date:dateFormat}}</dd>
+
+					<dt>Request URL: </dt>
+					<dd style="word-break: break-all;">{{history.request}}</dd>
+
+					<dt>Request Method: </dt>
+					<dd>{{history.method | uppercase}}</dd>
+
+					<dt>Response Time: </dt>
+					<dd>{{history.timer / 1000}} seconds</dd>
+				</dl>
+			</uib-tab>
+
+			<uib-tab heading="Payload" disable="!history.payload">
+				<div hljs source="history.payload" class="json-content small"></div>
+			</uib-tab>
+
+			<uib-tab disable="countHeaders(history.headers) == 0">
+				<uib-tab-heading>
+					Headers <span class="badge">{{countHeaders(history.headers)}}</span>
+				</uib-tab-heading>
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Value</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="(name, value) in history.headers">
+							<td class="break-row">{{name}}</td>
+							<td class="break-row">{{value}}</td>
+						</tr>
+					</tbody>
+				</table>
+				<p class="small"><strong>Note:</strong> An ACCEPT header is automatically added to every request.</p>
+			</uib-tab>
+
+			<uib-tab heading="Response">
+				<div ng-switch on="!!history.response" ng-hide="history.size">
+					<div ng-switch-when="true" hljs source="history.response" class="json-content small"></div>
+					<div ng-switch-default class="small"><pre>(No Response Data)</pre></div>
+				</div>
+				<uib-alert type="info" ng-show="history.size">The response was too large to store. Only responses less than {{history.maxSize / 1000}} kilobytes in size will be stored.</uib-alert>
+			</uib-tab>
+		</uib-tabset>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-default" ng-click="apply()">
+			<span class="glyphicon glyphicon-play"></span> Rerun Request
+		</button>
+		<div class="btn-group" uib-dropdown is-open="status.isopen">
+			<button type="button" class="btn btn-default" uib-dropdown-toggle ng-disabled="disabled">
+				<span class="glyphicon glyphicon-copy"></span> Copy <span class="caret"></span>
+			</button>
+			<ul uib-dropdown-menu>
+				<li><a href="" ng-click="copy(history.request)">Copy Request</a></li>
+				<li><a href="" ng-click="copy(history.response)" ng-show="history.response">Copy Response</a></li>
+			</ul>
+		</div>
+		<button class="btn btn-default" ng-click="cancel()">Close</button>
+	</div>
+</section>

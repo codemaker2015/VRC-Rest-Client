@@ -1,0 +1,27 @@
+{
+   "author": "Vishnu Sivan",
+   "background": {
+      "scripts": [ "extension/background.js" ]
+   },
+   "browser_action": {
+      "default_icon": {
+         "19": "img/logo_19x19.png",
+         "38": "img/logo_38x38.png"
+      }
+   },
+   "content_security_policy": "script-src 'self' https://www.google-analytics.com; object-src 'self'",
+   "description": "VRC (REST Client) is an easy-to-use REST Client. Use it to develop, test and debug RESTful APIs.",
+   "icons": {
+      "128": "img/logo_128x128.png",
+      "16": "img/logo_16x16.png",
+      "48": "img/logo_48x48.png"
+   },
+   "incognito": "split",
+   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1SA5jxkKWtxTB+U/PN0ITVglx0Zepnzez9MFXM9AFVVWfAm9/aNvmF4tpbFTM9WApKCm/y1zbwNgS+F9kQVaYI/k8PG6sPwb/ha3ux1WYhUFquL9P1bMjVWjKOwXlVG53JgSkB5Y5xGwJWbYyCoLbDqVjXrOJCvSJkpf989JIofQtXYlI0zR26LE/aGf8GgzrGcCuMZ9ufPsquo5WVbKdXNosB8FPCzyQaeNuaANgIfhkL92F19IG3VhB9sMruVirnMWzoQzWyz5cDRy9rhizVMgWLe5Gq6zLud5vV7qjwHTuf8uq+y3rMyj0b8GtpvFuvYzixYTwUFo3tO9y5gJlQIDAQAB",
+   "manifest_version": 2,
+   "name": "VRC REST Client",
+   "permissions": [ "\u003Call_urls>", "clipboardWrite", "storage", "unlimitedStorage" ],
+   "short_name": "YARC",
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "version": "1.1.5"
+}

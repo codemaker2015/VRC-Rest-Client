@@ -1,0 +1,383 @@
+/*
+ * Various custom styles for the REST Client. Bootstrap provides the bulk of the Look and Feel.
+ */
+
+
+
+/*
+ * Header
+ */
+.navbar {
+  border-top-width: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  min-height: 58px;
+}
+
+h1 {
+  display: inline;
+  font-size: 30px;
+  color: #777;
+}
+header .navbar-brand img {
+  margin-right: 5px;
+  margin-bottom: 1px;
+  -webkit-filter: grayscale(100%);
+}
+header .navbar-brand img:hover {
+  -webkit-filter: initial;
+  transition: all 1s;
+  transform: rotate(360deg);
+}
+sup {
+  top: -1.5em;
+}
+.navbar-default .navbar-brand:focus, .navbar-default .navbar-brand:hover {
+  color: #777 !important;
+  background-color: transparent;
+}
+
+.navbar-text {
+  margin-top: 24px;
+  margin-right: 30px;
+}
+
+.navbar-default .navbar-nav .navbar-link-container:hover {
+  background-image: linear-gradient(to bottom,#dbdbdb 0,#e2e2e2 100%);
+  background-repeat: repeat-x;
+  box-shadow: inset 0 3px 9px rgba(0,0,0,.075);
+}
+.navbar-default .navbar-nav .navbar-link-container {
+  border-left-width: 2px;
+  border-left-style: outset;
+}
+.navbar-default .navbar-nav .navbar-link-container > a {
+  padding-top: 24px;
+}
+.navbar-default .navbar-nav li.navbar-link-container > a:hover, .navbar-default .navbar-nav li.navbar-link-container > a:focus,
+.navbar-default .navbar-nav .open > a:hover, .navbar-default .navbar-nav .open > a:focus, .navbar-default .navbar-nav > .open > a {
+  color: #777;
+}
+.navbar-default ul.navbar-nav {
+  line-height: initial;
+}
+
+.badge {
+  background-color: #777;
+}
+
+.dropdown-menu .favorite-list {
+  padding: 1px 20px;
+  font-size: small;
+}
+
+
+/*
+ * Request Form
+ */
+.input-group-addon input:enabled.glyphicon {
+  cursor: pointer;
+}
+.input-group-addon input.glyphicon:before {
+  visibility: visible;
+}
+.input-group-addon input.glyphicon.glyphicon-star-empty:checked:before {
+   content: "\e006";
+}
+.input-group-addon input[type=checkbox].glyphicon {
+  visibility: hidden;
+  top: -1px;
+}
+
+[uib-typeahead-popup].dropdown-menu {
+  display: block;
+}
+
+button#requestMethodButton {
+  min-width: 110px;
+}
+.dropdown-menu input {
+  margin-left: 20px;
+  max-width: 60px;
+  border-width: 0;
+}
+
+.dropdown-menu input:hover {
+  outline: -webkit-focus-ring-color auto 5px;
+}
+.dropdown-menu-right {
+  min-width: 110px;
+}
+.dropdown-menu .glyphicon-plus {
+  font-size: smaller;
+}
+
+#request-form-buttons {
+  margin-bottom: 30px;
+}
+#request-form-buttons button {
+  margin-left: 10px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+form#add-favorite-modal div.form-group {
+  margin-top: 20px;
+  margin-bottom: 0;
+}
+
+.positive-message {
+  color: #3c763d;
+  margin-left: 10px;
+}
+
+.panel-title > a {
+  text-decoration: initial;
+}
+
+/* Ugly fix for a padding/margin issue with bootstrap v3 panels and newer versions of Chrome. */
+.panel {
+  border-width: 2px;
+  border-radius: 6px;
+}
+.panel-info {
+  border-color: #d9edf7;
+}
+
+
+/*
+ * Miscellaneous
+ */
+.toast-bottom-full-width {
+  bottom: 25px;
+}
+
+#photo {
+  margin-left: 20px;
+  width: 100%;
+  max-width: 358px;
+  border-radius: 15px;
+  box-shadow: 10px 10px 5px #ccc;
+}
+
+div.json-tabs {
+  margin-bottom: 10px;
+}
+div.json-content {
+  margin-top: 5px;
+  max-height: 800px;
+  overflow: auto;
+  overflow-x: hidden;
+}
+div.json-content pre {
+  background-color: #f0f0f0;
+}
+
+iframe {
+  width: 100%;
+  height: 800px;
+  border: 1px solid #cccccc;
+  margin-top: 5px;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+}
+
+.modal-tabs .tab-content {
+  border-style: solid;
+  border-width: 1px;
+  border-color: #ddd;
+  margin-top: -1px;
+  padding: 10px;
+  padding-bottom: 0;
+}
+#history-modal div.json-content, #favorite-modal div.json-content {
+  margin-top: 0px;
+  max-height: 400px;
+}
+#history-modal div.json-content pre, #favorite-modal div.json-content pre {
+  padding: 0;
+  font-size: inherit;
+}
+
+#favorite-modal table th, #history-modal table th {
+  min-width: 150px;
+}
+
+.legend li {
+  padding-top: 5px;
+}
+.legend {
+  margin-bottom: 20px;
+}
+
+.well {
+  word-break: break-all;
+}
+
+#copy-buttons {
+  text-align: center;
+}
+
+input.ng-invalid, input.ng-invalid:focus {
+  border-color: #a94442;
+  background-color: #fadbe0;
+}
+
+input.form-control[disabled] {
+  border-color: #ccc;
+}
+
+.modalBackdrop {
+  height: 100%;
+}
+
+/* Remove these if changing theme. */
+.modal-header {
+  background-color: #446e9b;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+.modal-title {
+  color: #fff;
+}
+.modal-body {
+  padding-bottom: 0;
+  margin-bottom: -1px;
+}
+.modal-content {
+  border-width: 0;
+}
+.nav-item {
+  display: inline;
+}
+
+
+/* Smart-Table Styles */
+.st-sort-ascent:before {
+  content: '\25B2';
+}
+.st-sort-descent:before {
+  content: '\25BC';
+}
+.clickable {
+  cursor: pointer;
+}
+.not-clickable {
+  cursor: default;
+}
+table#history td, table#history th, table#favorites td, table#favorites th, section#headers th {
+  white-space: nowrap;
+}
+td.break-row {
+  word-break: break-all;
+  white-space: normal !important;
+}
+table#history, table#favorites {
+  margin-bottom: 2px;
+}
+table#history .btn-xs {
+  margin-right: 12px;
+}
+.pagination a:hover {
+  cursor: pointer;
+}
+#history-modal dl, #favorite-modal dl {
+  margin-bottom: 0;
+}
+dd {
+  padding-bottom: 5px;
+}
+.alert {
+  margin-bottom: 10px;
+}
+
+/* Loading Spinner */
+.spinning {
+  -animation: spin .7s infinite linear;
+  -webkit-animation: spin .7s infinite linear;
+}
+@-webkit-keyframes spin {
+  from { -webkit-transform: rotate(0deg);}
+  to { -webkit-transform: rotate(360deg);}
+}
+@keyframes spin {
+  from { transform: scale(1) rotate(0deg);}
+  to { transform: scale(1) rotate(360deg);}
+}
+
+/* Response Status Codes */
+.status-code {
+  float: right;
+  font-size: 50px;
+  font-weight: bold;
+  line-height: 1.1;
+  color: #fff;
+  padding: 0 10px;
+  margin: 5px 0 5px 5px;
+  border-radius: 5px;
+  background-color: black;
+}
+td .status-code {
+  float: none;
+  font-size: inherit;
+}
+.http- {
+  background-color: transparent !important;
+}
+.http--1, .http-ERROR, .http-ABORT, .http-TIMEOUT {
+  background-color: #d9534f !important;
+}
+.http-100, .http-101, .http-102 {
+  background-color: #5bc0de !important;
+}
+.http-200, .http-201, .http-202, .http-203, .http-204, .http-205, .http-206, .http-207, .http-208, .http-226 {
+  background-color: #5cb85c !important;
+}
+.http-300, .http-301, .http-302, .http-303, .http-304, .http-305, .http-306, .http-307, .http-308 {
+  background-color: #f0ad4e !important;
+}
+.http-400, .http-401, .http-402, .http-403, .http-404, .http-405, .http-406, .http-407, .http-408, .http-409, .http-410, .http-411, .http-412, .http-413, .http-414, .http-415, .http-416, .http-417, .http-418, .http-421, .http-422, .http-423, .http-424, .http-426, .http-428, .http-429, .http-431, .http-451 {
+  background-color: #d9534f !important;
+}
+.http-500, .http-501, .http-502, .http-503, .http-504, .http-505, .http-506, .http-507, .http-508, .http-510, .http-511 {
+  background-color: #d9534f !important;
+}
+
+
+/*
+ * Sticky footer styles
+ */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  margin-bottom: 30px;
+}
+footer.navbar-default {
+  position: absolute;
+  bottom: 0;
+  border-top-left-radius: 40px;
+  border-top-right-radius: 40px;
+  border-width: 1px;
+  border-style: solid;
+  border-bottom-width: 0;
+}
+footer p {
+  font-size: smaller;
+  margin: 2px;
+}
+
+footer a, footer a:hover, footer a:focus {
+    color: #555;
+}
+
+
+/* Media Queries*/
+@media (max-width: 767px) {
+  footer.container {
+    width: 100%;
+  }
+}

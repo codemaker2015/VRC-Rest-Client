@@ -1,0 +1,41 @@
+{
+  "name": "vrc-rest-client",
+  "homepage": "http://yet-another-rest-client.com",
+  "authors": [
+    "Vishnu Sivan <codemaker2015@gmail.com>"
+  ],
+  "description": "VRC REST Client. A simple but powerful REST client for Chrome.",
+  "keywords": [
+    "rest",
+    "services",
+    "testing"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.8.2",
+    "angular-bootstrap": "~1.3.3",
+    "angular-highlightjs": "0.4.3",
+    "angular-resource": "~1.8.2",
+    "angular-smart-table": "~2.1.11",
+    "bootstrap": "~3.4.1",
+    "bootswatch-dist": "spacelab",
+    "highlightjs": "~9.3.0",
+    "angular-bootstrap-file-field": "git+https://github.com/codemaker2015",
+    "AngularJS-Toaster": "~3.0.0",
+    "angular-animate": "~1.8.2",
+    "angulartics": "~1.6.0",
+    "angulartics-google-analytics": "~0.5.0",
+    "angular-mocks": "~1.8.2"
+  },
+  "resolutions": {
+    "angular-highlightjs": "0.4.3"
+  }
+}
